@@ -1,0 +1,30 @@
+--- edgar-0.20/makefile~	2009-07-22 10:57:53.000000000 +0200
++++ edgar-0.20/makefile	2009-07-22 11:05:43.000000000 +0200
+@@ -19,8 +19,6 @@
+ 
+ PREFIX = $(DESTDIR)/usr
+ BIN_DIR = $(PREFIX)/bin/
+-DOC_DIR = $(PREFIX)/share/doc/$(PROG)/
+-ICON_DIR = $(PREFIX)/share/pixmaps/
+ DESKTOP_DIR = $(PREFIX)/share/applications/
+ LOCALE_DIR = $(PREFIX)/share/locale/
+ LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
+@@ -100,18 +98,10 @@
+ 
+ 	mkdir -p $(BIN_DIR)
+ 	mkdir -p $(DATA_DIR)
+-	mkdir -p $(DOC_DIR)
+-	mkdir -p $(ICON_DIR)16x16/apps
+-	mkdir -p $(ICON_DIR)32x32/apps
+-	mkdir -p $(ICON_DIR)64x64/apps
+ 	mkdir -p $(DESKTOP_DIR)
+ 
+ 	install $(PROG) $(BIN_DIR)$(PROG)
+ 	install $(PAK_FILE) $(DATA_DIR)$(PAK_FILE)
+-	install $(DOCS) $(DOC_DIR)
+-	cp $(ICONS)$(PROG).png $(ICON_DIR)16x16/apps/
+-	cp $(ICONS)$(PROG).png $(ICON_DIR)32x32/apps/
+-	cp $(ICONS)$(PROG).png $(ICON_DIR)64x64/apps/
+ 	cp $(ICONS)$(PROG).desktop $(DESKTOP_DIR)
+ 
+ 	@for f in $(LOCALE_MO); do \

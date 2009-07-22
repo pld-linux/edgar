@@ -1,0 +1,72 @@
+--- edgar-0.20/makefile~	2009-07-22 10:56:21.000000000 +0200
++++ edgar-0.20/makefile	2009-07-22 10:56:09.000000000 +0200
+@@ -18,9 +18,9 @@
+ CXX       = gcc
+ 
+ PREFIX = $(DESTDIR)/usr
+-BIN_DIR = $(PREFIX)/games/
++BIN_DIR = $(PREFIX)/bin/
+ DOC_DIR = $(PREFIX)/share/doc/$(PROG)/
+-ICON_DIR = $(PREFIX)/share/icons/hicolor/
++ICON_DIR = $(PREFIX)/share/pixmaps/
+ DESKTOP_DIR = $(PREFIX)/share/applications/
+ LOCALE_DIR = $(PREFIX)/share/locale/
+ LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
+@@ -28,14 +28,10 @@
+ ifeq ($(OS),Windows_NT)
+ DATA_DIR =
+ else
+-DATA_DIR = $(PREFIX)/share/games/edgar/
++DATA_DIR = $(PREFIX)/share/edgar/
+ endif
+ 
+-ifeq ($(DEV),1)
+-CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-else
+-CFLAGS = -Wall -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-endif
++CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+ 
+ ifeq ($(OS),Windows_NT)
+ LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -llibintl -lm
+@@ -69,7 +65,7 @@
+ all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO)
+ 
+ makefile.dep : src/*/*.c src/*.c
+-	for i in src/*.c src/*/*.c; do gcc -MM "$${i}"; done > $@
++	for i in src/*.c src/*/*.c; do $(CXX) -MM "$${i}"; done > $@
+ 
+ # compiling other source files.
+ %.o:
+@@ -80,15 +76,15 @@
+ 
+ # linking the program.
+ $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
+-	$(CXX) $(MAIN_OBJS) $(CORE_OBJS) -o $(PROG) $(LFLAGS)
++	$(CXX) $(LDFLAGS) $(MAIN_OBJS) $(CORE_OBJS) -o $(PROG) $(LFLAGS)
+ 	
+ # linking the program.
+ $(ED_PROG): $(EDIT_OBJS) $(CORE_OBJS)
+-	$(CXX) $(EDIT_OBJS) $(CORE_OBJS) -o $(ED_PROG) $(LFLAGS)
++	$(CXX) $(LDFLAGS) $(EDIT_OBJS) $(CORE_OBJS) -o $(ED_PROG) $(LFLAGS)
+ 
+ # linking the program.
+ $(PAK_PROG): $(PAK_OBJS)
+-	$(CXX) $(PAK_OBJS) -o $(PAK_PROG) $(LFLAGS)
++	$(CXX) $(LDFLAGS) $(PAK_OBJS) -o $(PAK_PROG) $(LFLAGS)
+ 
+ # cleaning everything that can be automatically recreated with "make".
+ clean:
+@@ -110,9 +106,9 @@
+ 	mkdir -p $(ICON_DIR)64x64/apps
+ 	mkdir -p $(DESKTOP_DIR)
+ 
+-	install -o root -g games -m 755 $(PROG) $(BIN_DIR)$(PROG)
+-	install -o root -g games -m 644 $(PAK_FILE) $(DATA_DIR)$(PAK_FILE)
+-	install -o root -g games -m 644 $(DOCS) $(DOC_DIR)
++	install $(PROG) $(BIN_DIR)$(PROG)
++	install $(PAK_FILE) $(DATA_DIR)$(PAK_FILE)
++	install $(DOCS) $(DOC_DIR)
+ 	cp $(ICONS)$(PROG).png $(ICON_DIR)16x16/apps/
+ 	cp $(ICONS)$(PROG).png $(ICON_DIR)32x32/apps/
+ 	cp $(ICONS)$(PROG).png $(ICON_DIR)64x64/apps/
