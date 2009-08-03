@@ -1,0 +1,16 @@
+--- edgar-0.20/icons/edgar.desktop~	2009-07-22 11:15:06.000000000 +0200
++++ edgar-0.20/icons/edgar.desktop	2009-07-22 11:15:06.000000000 +0200
+@@ -1,9 +1,10 @@
+ [Desktop Entry]
+-Encoding=UTF-8
+-Categories=Application;Game;
+-X-Desktop-File-Install-Version=1.0
++Categories=Game;ArcadeGame
+ Name=The Legend of Edgar
++Comment=2D Platform game
++Comment[pl]=Dwuwymiarowa gra platformowa
+ Icon=edgar
+ Exec=edgar
+ Terminal=false
+ Type=Application
++# vi: encoding=utf-8
