@@ -1,5 +1,5 @@
---- edgar-0.20/makefile~	2009-07-22 10:56:21.000000000 +0200
-+++ edgar-0.20/makefile	2009-07-22 10:56:09.000000000 +0200
+--- edgar-0.25/makefile~	2009-08-11 19:07:40.000000000 +0200
++++ edgar-0.25/makefile	2009-08-21 11:52:55.000000000 +0200
 @@ -18,9 +18,9 @@
  CXX       = gcc
  
@@ -23,13 +23,13 @@
 -ifeq ($(DEV),1)
 -CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
 -else
--CFLAGS = -Wall -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-CFLAGS = -Wall -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
 -endif
 +CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
  
  ifeq ($(OS),Windows_NT)
  LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -llibintl -lm
-@@ -69,7 +65,7 @@
+@@ -70,7 +66,7 @@
  all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO)
  
  makefile.dep : src/*/*.c src/*.c
@@ -38,13 +38,14 @@
  
  # compiling other source files.
  %.o:
-@@ -80,15 +76,15 @@
+@@ -81,15 +77,15 @@
  
  # linking the program.
  $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
 -	$(CXX) $(MAIN_OBJS) $(CORE_OBJS) -o $(PROG) $(LFLAGS)
+-	
 +	$(CXX) $(LDFLAGS) $(MAIN_OBJS) $(CORE_OBJS) -o $(PROG) $(LFLAGS)
- 	
++
  # linking the program.
  $(ED_PROG): $(EDIT_OBJS) $(CORE_OBJS)
 -	$(CXX) $(EDIT_OBJS) $(CORE_OBJS) -o $(ED_PROG) $(LFLAGS)
@@ -57,7 +58,7 @@
  
  # cleaning everything that can be automatically recreated with "make".
  clean:
-@@ -110,9 +106,9 @@
+@@ -111,9 +107,9 @@
  	mkdir -p $(ICON_DIR)64x64/apps
  	mkdir -p $(DESKTOP_DIR)
  
