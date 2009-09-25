@@ -1,6 +1,6 @@
---- edgar-0.25/makefile~	2009-08-11 19:07:40.000000000 +0200
-+++ edgar-0.25/makefile	2009-08-21 11:52:55.000000000 +0200
-@@ -18,9 +18,9 @@
+--- edgar-0.31/makefile~	2009-09-24 23:15:16.000000000 +0200
++++ edgar-0.31/makefile	2009-09-25 14:59:18.000000000 +0200
+@@ -20,9 +20,9 @@
  CXX       = gcc
  
  PREFIX = $(DESTDIR)/usr
@@ -12,7 +12,7 @@
  DESKTOP_DIR = $(PREFIX)/share/applications/
  LOCALE_DIR = $(PREFIX)/share/locale/
  LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
-@@ -28,14 +28,10 @@
+@@ -30,14 +30,10 @@
  ifeq ($(OS),Windows_NT)
  DATA_DIR =
  else
@@ -29,8 +29,8 @@
  
  ifeq ($(OS),Windows_NT)
  LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -llibintl -lm
-@@ -70,7 +66,7 @@
- all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO)
+@@ -77,7 +73,7 @@
+ all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO) $(PO_PROG)
  
  makefile.dep : src/*/*.c src/*.c
 -	for i in src/*.c src/*/*.c; do gcc -MM "$${i}"; done > $@
@@ -38,7 +38,7 @@
  
  # compiling other source files.
  %.o:
-@@ -81,15 +77,15 @@
+@@ -88,19 +84,19 @@
  
  # linking the program.
  $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
@@ -55,10 +55,15 @@
  $(PAK_PROG): $(PAK_OBJS)
 -	$(CXX) $(PAK_OBJS) -o $(PAK_PROG) $(LFLAGS)
 +	$(CXX) $(LDFLAGS) $(PAK_OBJS) -o $(PAK_PROG) $(LFLAGS)
+ 	
+ # linking the program.
+ $(PO_PROG): $(PO_OBJS)
+-	$(CXX) $(PO_OBJS) -o $(PO_PROG) $(LFLAGS)
++	$(CXX) $(LDFLAGS) $(PO_OBJS) -o $(PO_PROG) $(LFLAGS)
  
  # cleaning everything that can be automatically recreated with "make".
  clean:
-@@ -111,9 +107,9 @@
+@@ -122,9 +118,9 @@
  	mkdir -p $(ICON_DIR)64x64/apps
  	mkdir -p $(DESKTOP_DIR)
  
