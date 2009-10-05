@@ -1,12 +1,12 @@
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
-Version:	0.31
+Version:	0.32
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://www.parallelrealities.co.uk/download/69a8b202/edgar/%{name}-%{version}-1.tar.gz
-# Source0-md5:	5f4e57f0eb45c41d98bc3db3de9ecf94
+Source0:	http://www.parallelrealities.co.uk/download/1e0beca9/edgar/%{name}-%{version}-1.tar.gz
+# Source0-md5:	835892ce58b1622a05624cc8c8b19258
 Source1:	%{name}.png
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-usless_files.patch
@@ -50,10 +50,12 @@ install -d $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_pixmapsdir}
 
+%find_lang %{name} --all-name
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc doc/*
 %attr(755,root,root) %{_bindir}/edgar
