@@ -1,5 +1,5 @@
---- edgar-0.31/makefile~	2009-09-24 23:15:16.000000000 +0200
-+++ edgar-0.31/makefile	2009-09-25 14:59:18.000000000 +0200
+--- edgar-0.32/makefile~	2009-10-03 10:35:27.000000000 +0200
++++ edgar-0.32/makefile	2009-10-05 14:35:32.000000000 +0200
 @@ -20,9 +20,9 @@
  CXX       = gcc
  
@@ -12,7 +12,7 @@
  DESKTOP_DIR = $(PREFIX)/share/applications/
  LOCALE_DIR = $(PREFIX)/share/locale/
  LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
-@@ -30,14 +30,10 @@
+@@ -30,15 +30,10 @@
  ifeq ($(OS),Windows_NT)
  DATA_DIR =
  else
@@ -22,14 +22,15 @@
  
 -ifeq ($(DEV),1)
 -CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-#CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
 -else
--CFLAGS = -Wall -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
 -endif
 +CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
  
  ifeq ($(OS),Windows_NT)
  LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -llibintl -lm
-@@ -77,7 +73,7 @@
+@@ -78,7 +73,7 @@
  all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO) $(PO_PROG)
  
  makefile.dep : src/*/*.c src/*.c
@@ -38,14 +39,13 @@
  
  # compiling other source files.
  %.o:
-@@ -88,19 +84,19 @@
+@@ -89,19 +84,19 @@
  
  # linking the program.
  $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
 -	$(CXX) $(MAIN_OBJS) $(CORE_OBJS) -o $(PROG) $(LFLAGS)
--	
 +	$(CXX) $(LDFLAGS) $(MAIN_OBJS) $(CORE_OBJS) -o $(PROG) $(LFLAGS)
-+
+ 	
  # linking the program.
  $(ED_PROG): $(EDIT_OBJS) $(CORE_OBJS)
 -	$(CXX) $(EDIT_OBJS) $(CORE_OBJS) -o $(ED_PROG) $(LFLAGS)
@@ -63,7 +63,7 @@
  
  # cleaning everything that can be automatically recreated with "make".
  clean:
-@@ -122,9 +118,9 @@
+@@ -123,9 +118,9 @@
  	mkdir -p $(ICON_DIR)64x64/apps
  	mkdir -p $(DESKTOP_DIR)
  
