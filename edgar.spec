@@ -2,7 +2,7 @@ Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
 Version:	0.32
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.parallelrealities.co.uk/download/1e0beca9/edgar/%{name}-%{version}-1.tar.gz
