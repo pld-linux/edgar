@@ -1,6 +1,6 @@
---- edgar-0.32/makefile~	2009-10-03 10:35:27.000000000 +0200
-+++ edgar-0.32/makefile	2009-10-05 14:35:32.000000000 +0200
-@@ -20,9 +20,9 @@
+--- edgar-0.50/makefile~	2010-02-22 09:29:43.000000000 +0100
++++ edgar-0.50/makefile	2010-02-24 10:02:40.093606678 +0100
+@@ -22,9 +22,9 @@
  CXX       = gcc
  
  PREFIX = $(DESTDIR)/usr
@@ -12,7 +12,7 @@
  DESKTOP_DIR = $(PREFIX)/share/applications/
  LOCALE_DIR = $(PREFIX)/share/locale/
  LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
-@@ -30,15 +30,10 @@
+@@ -32,15 +32,10 @@
  ifeq ($(OS),Windows_NT)
  DATA_DIR =
  else
@@ -21,16 +21,16 @@
  endif
  
 -ifeq ($(DEV),1)
--CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
 -#CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
 -else
--CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
 -endif
-+CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
++CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
  
  ifeq ($(OS),Windows_NT)
- LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lz -llibintl -lm
-@@ -78,7 +73,7 @@
+ LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lSDL_net -lz -llibintl -lm
+@@ -85,7 +80,7 @@
  all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO) $(PO_PROG)
  
  makefile.dep : src/*/*.c src/*.c
@@ -39,7 +39,7 @@
  
  # compiling other source files.
  %.o:
-@@ -89,19 +84,19 @@
+@@ -96,19 +91,19 @@
  
  # linking the program.
  $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
@@ -63,7 +63,7 @@
  
  # cleaning everything that can be automatically recreated with "make".
  clean:
-@@ -123,9 +118,9 @@
+@@ -130,9 +125,9 @@
  	mkdir -p $(ICON_DIR)64x64/apps
  	mkdir -p $(DESKTOP_DIR)
  
