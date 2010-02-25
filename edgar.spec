@@ -14,6 +14,7 @@ Patch2:		%{name}-desktop.patch
 URL:		http://www.parallelrealities.co.uk/projects/edgar.php
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
+BuildRequires:	SDL_net-devel
 BuildRequires:	SDL_ttf-devel
 BuildRequires:	gettext-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
