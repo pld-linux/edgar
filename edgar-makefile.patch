@@ -1,36 +1,29 @@
---- edgar-0.50/makefile~	2010-02-22 09:29:43.000000000 +0100
-+++ edgar-0.50/makefile	2010-02-24 10:02:40.093606678 +0100
-@@ -22,9 +22,9 @@
+--- edgar-0.57/makefile~	2010-05-26 18:37:35.000000000 +0200
++++ edgar-0.57/makefile	2010-05-27 09:52:00.852135096 +0200
+@@ -24,7 +24,7 @@
  CXX       = gcc
  
  PREFIX = $(DESTDIR)/usr
 -BIN_DIR = $(PREFIX)/games/
 +BIN_DIR = $(PREFIX)/bin/
  DOC_DIR = $(PREFIX)/share/doc/$(PROG)/
--ICON_DIR = $(PREFIX)/share/icons/hicolor/
-+ICON_DIR = $(PREFIX)/share/pixmaps/
+ ICON_DIR = $(PREFIX)/share/icons/hicolor/
  DESKTOP_DIR = $(PREFIX)/share/applications/
- LOCALE_DIR = $(PREFIX)/share/locale/
- LOCALE_MO = $(patsubst %.po,%.mo,$(wildcard locale/*.po))
-@@ -32,15 +32,10 @@
- ifeq ($(OS),Windows_NT)
- DATA_DIR =
- else
--DATA_DIR = $(PREFIX)/share/games/edgar/
-+DATA_DIR = $(PREFIX)/share/edgar/
+@@ -37,12 +37,7 @@
+ DATA_DIR = $(PREFIX)/share/games/edgar/
  endif
  
 -ifeq ($(DEV),1)
 -CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
--#CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-#CFLAGS = -Wall -Os -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
 -else
--CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
+-CFLAGS = -Wall -Os -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
 -endif
 +CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
  
  ifeq ($(OS),Windows_NT)
  LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lSDL_net -lz -llibintl -lm
-@@ -85,7 +80,7 @@
+@@ -92,7 +87,7 @@
  all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO) $(PO_PROG)
  
  makefile.dep : src/*/*.c src/*.c
@@ -39,7 +32,7 @@
  
  # compiling other source files.
  %.o:
-@@ -96,19 +91,19 @@
+@@ -103,23 +98,23 @@
  
  # linking the program.
  $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
@@ -61,18 +54,10 @@
 -	$(CXX) $(PO_OBJS) -o $(PO_PROG) $(LFLAGS)
 +	$(CXX) $(LDFLAGS) $(PO_OBJS) -o $(PO_PROG) $(LFLAGS)
  
+ # linking the program.
+ $(TILE_PROG): $(TILE_OBJS)
+-	$(CXX) $(TILE_OBJS) -o $(TILE_PROG) $(LFLAGS)
++	$(CXX) $(LDFLAGS) $(TILE_OBJS) -o $(TILE_PROG) $(LFLAGS)
+ 
  # cleaning everything that can be automatically recreated with "make".
  clean:
-@@ -130,9 +125,9 @@
- 	mkdir -p $(ICON_DIR)64x64/apps
- 	mkdir -p $(DESKTOP_DIR)
- 
--	install -o root -g games -m 755 $(PROG) $(BIN_DIR)$(PROG)
--	install -o root -g games -m 644 $(PAK_FILE) $(DATA_DIR)$(PAK_FILE)
--	install -o root -g games -m 644 $(DOCS) $(DOC_DIR)
-+	install $(PROG) $(BIN_DIR)$(PROG)
-+	install $(PAK_FILE) $(DATA_DIR)$(PAK_FILE)
-+	install $(DOCS) $(DOC_DIR)
- 	cp $(ICONS)$(PROG).png $(ICON_DIR)16x16/apps/
- 	cp $(ICONS)$(PROG).png $(ICON_DIR)32x32/apps/
- 	cp $(ICONS)$(PROG).png $(ICON_DIR)64x64/apps/
