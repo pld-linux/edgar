@@ -1,15 +1,15 @@
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
-Version:	0.56
+Version:	0.57
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.parallelrealities.co.uk/download/edgar/%{name}-%{version}-1.tar.gz
-# Source0-md5:	b09ee1a313a61c59386d0091abe28d95
+# Source0-md5:	173d15fe36e4936343a8b676bab3b582
 Source1:	%{name}.png
 Patch0:		%{name}-makefile.patch
-Patch1:		%{name}-usless_files.patch
+Patch1:		%{name}-useless_files.patch
 Patch2:		%{name}-desktop.patch
 URL:		http://www.parallelrealities.co.uk/projects/edgar.php
 BuildRequires:	SDL_image-devel
@@ -17,7 +17,6 @@ BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_net-devel
 BuildRequires:	SDL_ttf-devel
 BuildRequires:	gettext-devel
-BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -52,15 +51,13 @@ install -d $RPM_BUILD_ROOT%{_pixmapsdir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_pixmapsdir}
 
-%find_lang %{name} --all-name
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}.lang
+%files
 %defattr(644,root,root,755)
 %doc doc/*
 %attr(755,root,root) %{_bindir}/edgar
-%{_datadir}/edgar
+%{_datadir}/games/edgar
 %{_desktopdir}/edgar.desktop
 %{_pixmapsdir}/edgar.png
