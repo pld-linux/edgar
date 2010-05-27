@@ -1,0 +1,4 @@
+- updated to 0.57
+- usless_files.patch renamed to useless_files.patch
+- patches updated
+- install data to /usr/share/games
