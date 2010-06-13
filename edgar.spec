@@ -1,16 +1,17 @@
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
-Version:	0.57
+Version:	0.60
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.parallelrealities.co.uk/download/edgar/%{name}-%{version}-1.tar.gz
-# Source0-md5:	173d15fe36e4936343a8b676bab3b582
+# Source0-md5:	91f4560c646e254ee67874f7e24cf20a
 Source1:	%{name}.png
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-useless_files.patch
 Patch2:		%{name}-desktop.patch
+Patch3:		%{name}-link.patch
 URL:		http://www.parallelrealities.co.uk/projects/edgar.php
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
@@ -35,6 +36,7 @@ podczas próby odnalezienia i uratowania swojego ojca.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__make} \
