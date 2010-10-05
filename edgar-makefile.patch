@@ -1,5 +1,5 @@
---- edgar-0.70/makefile~	2010-09-13 16:06:28.767654569 +0200
-+++ edgar-0.70/makefile	2010-09-13 16:06:32.781824438 +0200
+--- edgar-0.72/makefile~	2010-10-02 20:11:24.000000000 +0200
++++ edgar-0.72/makefile	2010-10-05 10:56:40.559985331 +0200
 @@ -24,7 +24,7 @@
  CXX       = gcc
  
@@ -9,21 +9,22 @@
  DOC_DIR = $(PREFIX)/share/doc/$(PROG)/
  ICON_DIR = $(PREFIX)/share/icons/hicolor/
  DESKTOP_DIR = $(PREFIX)/share/applications/
-@@ -37,12 +37,7 @@
+@@ -37,13 +37,7 @@
  DATA_DIR = $(PREFIX)/share/games/edgar/
  endif
  
 -ifeq ($(DEV),1)
 -CFLAGS = -Wall -g -pedantic -Werror -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
--#CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\"
+-#CFLAGS = -Wall -O2 -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
 -else
 -CFLAGS = -Wall -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
+-#CFLAGS = -Wall -Os -pedantic -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
 -endif
 +CFLAGS = $(OPTFLAGS) -DVERSION=$(VERSION) -DRELEASE=$(RELEASE) -DDEV=$(DEV) -DINSTALL_PATH=\"$(DATA_DIR)\" -DLOCALE_DIR=\"$(LOCALE_DIR)\" -DPAK_FILE=\"$(PAK_FILE)\" -DMEDAL_SERVER_HOST=\"$(MEDAL_SERVER_HOST)\" -DMEDAL_SERVER_PORT=$(MEDAL_SERVER_PORT)
  
  ifeq ($(OS),Windows_NT)
  LFLAGS = `sdl-config --libs` -lSDL -lSDL_image -lSDL_mixer -lSDL_ttf -lSDL_net -lz -llibintl -lm
-@@ -96,7 +91,7 @@
+@@ -97,7 +91,7 @@
  all : $(PROG) makefile.dep $(ED_PROG) $(PAK_PROG) $(LOCALE_MO) $(PO_PROG)
  
  makefile.dep : src/*/*.c src/*.c
@@ -32,7 +33,7 @@
  
  # compiling other source files.
  %.o:
-@@ -107,23 +102,23 @@
+@@ -108,23 +102,23 @@
  
  # linking the program.
  $(PROG): $(MAIN_OBJS) $(CORE_OBJS)
