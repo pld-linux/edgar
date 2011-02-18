@@ -1,4 +1,3 @@
-# $Revision: 1.36 $, $Damte: 2011/01/28 21:24:39 $
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
