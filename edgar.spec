@@ -1,12 +1,13 @@
+# $Revision: 1.36 $, $Damte: 2011/01/28 21:24:39 $
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
-Version:	0.76
+Version:	0.77
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.parallelrealities.co.uk/download/edgar/%{name}-%{version}-1.tar.gz
-# Source0-md5:	e95ff293165b59a332466c6dd2239eda
+# Source0-md5:	9dd279fa6edbeb40122dafe3f3e0df1c
 Source1:	%{name}.png
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-useless_files.patch
