@@ -1,12 +1,12 @@
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
-Version:	0.93
+Version:	0.94
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://downloads.sourceforge.net/legendofedgar/%{name}-%{version}-1.tar.gz
-# Source0-md5:	f3fbb2b075696c3ff7751738bb74469c
+Source0:	http://downloads.sourceforge.net/legendofedgar/%{name}-%{version}-2.tar.gz
+# Source0-md5:	ba26aeba3068c8c3b21ba17cac30d495
 Source1:	%{name}.png
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-useless_files.patch
