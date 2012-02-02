@@ -1,21 +1,19 @@
 Summary:	2D Platform game
 Summary(pl.UTF-8):	Dwuwymiarowa gra platformowa
 Name:		edgar
-Version:	0.94
+Version:	0.96
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
-Source0:	http://downloads.sourceforge.net/legendofedgar/%{name}-%{version}-2.tar.gz
-# Source0-md5:	ba26aeba3068c8c3b21ba17cac30d495
+Source0:	http://downloads.sourceforge.net/legendofedgar/%{name}-%{version}-1.tar.gz
+# Source0-md5:	9a13505c0036a10ccd5842a0f7bd5c27
 Source1:	%{name}.png
 Patch0:		%{name}-makefile.patch
 Patch1:		%{name}-useless_files.patch
 Patch2:		%{name}-desktop.patch
-Patch3:		%{name}-link.patch
 URL:		http://www.parallelrealities.co.uk/p/legend-of-edgar.html
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
-BuildRequires:	SDL_net-devel
 BuildRequires:	SDL_ttf-devel
 BuildRequires:	gettext-devel
 BuildRequires:	zlib-devel
@@ -38,7 +36,6 @@ podczas próby odnalezienia i uratowania swojego ojca.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__make} \
