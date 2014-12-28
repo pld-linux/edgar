@@ -15,7 +15,7 @@ URL:		http://www.parallelrealities.co.uk/p/legend-of-edgar.html
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_ttf-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	zlib-devel
 Requires:	audiofile
 Requires:	libmikmod
